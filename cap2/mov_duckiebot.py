@@ -46,7 +46,7 @@ env.reset()
 while True:
 
     # Captura la tecla que está siendo apretada y almacena su valor en key
-    key = cv2.waitKey(30)
+    key = cv2.waitKey(100)
 
     # Si la tecla es Esc, se sale del loop y termina el programa
     if key == 27:
@@ -55,17 +55,25 @@ while True:
     # La acción de Duckiebot consiste en dos valores:
     # velocidad lineal y velocidad de giro
     # En este caso, ambas velocidades son 0 (acción por defecto)
+
     action = np.array([0.0, 0.0])
 
     # Definir acción en base a la tecla apretada
-
-    # Esto es avanzar recto hacia adelante al apretar la tecla w
     if key == ord('w'):
-        action = np.array([0.44, 0.0])
+        action[0]=0.44
+        print(str(key))
+        
+    if key == ord('s'):
+        action[0]=-0.44
+        print(str(key))
+        
+    if key == ord('a'):
+        action[1]=1
+        print(str(key))
 
-    ### AGREGAR MÁS COMPORTAMIENTOS ###
-
-
+    if key == ord('d'):
+        action[1]=-1
+        print(str(key))
 
     # Se ejecuta la acción definida anteriormente y se retorna la observación (obs),
     # la evaluación (reward), etc
