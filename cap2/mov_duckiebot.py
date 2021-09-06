@@ -75,6 +75,28 @@ while True:
         action[1]=-1
         print(str(key))
 
+    if key == ord('q'):
+        action[0]=0.44
+        action[1]=1
+        print(str(key))
+
+    if key == ord('e'):
+        action[0]=0.44
+        action[1]=-1
+        print(str(key))
+
+    if key == ord('z'):
+        action[0]=-0.44
+        action[1]=-1
+        print(str(key))
+
+    if key == ord('x'):
+        action[0]=-0.44
+        action[1]=1
+        print(str(key))
+
+
+
     # Se ejecuta la acción definida anteriormente y se retorna la observación (obs),
     # la evaluación (reward), etc
     obs, reward, done, info = env.step(action)
