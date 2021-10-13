@@ -58,7 +58,7 @@ if __name__ == '__main__':
                             debug=0)
 
     # valor de f encontrado en el desafio anterior
-    f = 1
+    f = 730
     
     h = 0.042
     area = -1
@@ -82,23 +82,29 @@ if __name__ == '__main__':
             env.reset()
 
         # convertir imagen a escala de grises
+        gray_image=cv2.cvtColor(obs,cv2.COLOR_RGB2GRAY)
 
         # detectar los tags
-        tags = []
+        tags = at_detector.detect(gray_image, estimate_tag_pose=False, camera_params=None, tag_size=None)
         for tag in tags:
             # obtener esquinas del tag
-
+            esquinas=tag.corners
+            
             # calcular p usando las esquinas encontradas (la altura de la deteccion)
-            p = 0
+            p = esquinas[0][1]-esquinas[2][1]
 
             # calcular la distancia desde el robot hasta la deteccion
-            dist = 0
+            dist = h*f/p
 
             if dist <= 1:
                 #si se esta cerca del tag, asignar su id a la variable area
-                pass
+                area=tag.tag_id
+        
 
             #dibujar la deteccion en la imagen
+            
+            cv2.rectangle(obs,(int(esquinas[0][0]),int(esquinas[0][1])),(int(esquinas[2][0]),int(esquinas[2][1])),(0,255,0),2)
+            cv2.putText(obs,str(tag.tag_id),(int(esquinas[2][0]),int(esquinas[2][1])),cv2.FONT_HERSHEY_PLAIN,2,(221,82,196),2)
             
             
         print(f"ubicacion actual: area {area}")
